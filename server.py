@@ -1,7 +1,7 @@
 from flask import Flask, redirect, request
 from json import dumps
-from urllib import urlencode, quote
-from collections import OrderedDict
+from urllib.parse import urlencode
+
 app = Flask(__name__)
 app.debug = True
 
@@ -25,12 +25,12 @@ def auth_with_steam():
 
   query_string = urlencode(params)
   auth_url = steam_openid_url + "?" + query_string
-  print auth_url
+  print(auth_url)
   return redirect(auth_url)
 
 @app.route("/authorize")
 def authorize():
-  print request.args
+  print(request.args)
   return dumps(request.args) + '<br><br><a href="http://localhost:5000/auth">Login with steam</a>'
 
 if __name__ == "__main__":
